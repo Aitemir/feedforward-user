@@ -1,0 +1,104 @@
+<div class="container">
+    <div id="wrapper">
+        <div id="header">
+            <mat-icon id="icon">school</mat-icon>
+            <h3 id="title">Program Selection
+            </h3>       
+        </div>
+        <div>
+            <span id="note">Please carefully choose your competency from the following tracks, entrusted professional activities, 
+                domains of competencies, and competencies. After specifying the competency, please select a rotation and 
+            an evaluator.</span>
+        </div> 
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Select a track</mat-label>
+                <mat-select [formControl]="trackControl" required>
+                  <!--<mat-option>--</mat-option>-->
+                  <mat-option *ngFor="let track of tracks" [value]="track">
+                    {{track.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="trackControl.hasError('required')">Please specify a track</mat-error>
+                <!--<mat-hint>Specify a track</mat-hint>-->
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Select an EPA</mat-label>
+                <mat-select [formControl]="epaControl"
+                [disabled]="!trackControl.value"
+                required>
+                    <mat-option *ngFor="let epa of epas" [value]="epa">
+                        {{epa.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="epaControl.hasError('required')">Please specify an entrusted professional activity</mat-error>
+                <!--<mat-hint>Specify an EPA</mat-hint>-->
+              </mat-form-field>
+              <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Select a DOC</mat-label>
+                <mat-select [formControl]="docControl"
+                [disabled]="!epaControl.value"
+                required>
+                    <mat-option *ngFor="let doc of docs" [value]="doc">
+                        {{doc.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docControl.hasError('required')">Please specify a domain of competencies</mat-error>
+                <!--<mat-hint>Specify a DOC</mat-hint>-->
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Select competency</mat-label>
+                <mat-select [formControl]="competencyControl"
+                [disabled]="!docControl.value"
+                required>
+                    <mat-option *ngFor="let competency of competencies" [value]="competency">
+                        {{competency.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="competencyControl.hasError('required')">Please specify a competency</mat-error>
+                <!--<mat-hint>Specify a competency</mat-hint>-->
+            </mat-form-field>
+            <div>
+                <span id="note" *ngIf="!competencyControl.value">Select your rotation</span>
+                <span *ngIf="competencyControl.value">Select your rotation</span>
+            </div> 
+            <mat-form-field appearance="outline">
+                <mat-label>Select a rotation</mat-label>
+                <mat-select [formControl]="rotationControl"
+                [disabled]="!competencyControl.value"
+                required>
+                    <mat-option *ngFor="let rotation of rotations" [value]="rotation">
+                        {{rotation.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="rotationControl.hasError('required')">Please specify a rotation</mat-error>
+                <!--<mat-hint>Specify a rotation</mat-hint>-->
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Select an evaluator</mat-label>
+                <mat-select [formControl]="evaluatorControl"
+                [disabled]="!rotationControl.value"
+                required>
+                    <mat-option *ngFor="let evaluator of evaluators" [value]="evaluator">
+                        {{evaluator.firstName}} {{evaluator.lastName}} ({{evaluator.Role}})
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="evaluatorControl.hasError('required')">Please specify an evaluator</mat-error>
+                <!--<mat-hint>Specify a evaluator</mat-hint>-->
+            </mat-form-field>
+            <div class="button">
+                <button 
+                mat-flat-button 
+                color="primary" 
+                [disabled]="!evaluatorControl.value"
+                (click)="openConfirmationDialog()">        
+                  Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

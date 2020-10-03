@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "feedforward-user": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "feedforward-user"
+    }
+  },
+  "defaultProject": "feedforward-user",
+  "cli": {
+    "analytics": "09b04df4-fbe4-4c97-9054-10fcc4328830"
+  }
 }
